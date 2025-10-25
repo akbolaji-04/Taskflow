@@ -1,0 +1,110 @@
+/* TaskFlow — Minimalist styles */
+:root{
+  --bg:#f3faf9;
+  --card:#ffffff;
+  --muted:#6b7280;
+  --accent:#14b8a6; /* teal */
+  --accent-600:#0f8f7f;
+  --danger:#ef5b5b;
+  --glass: rgba(0,0,0,0.04);
+  --radius:12px;
+  --max-width:720px;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#fff);color:#1f2937}
+
+.app{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 16px}
+.header{margin-bottom:18px;text-align:center}
+.brand{margin:0;font-weight:700;letter-spacing:-0.02em;font-size:28px}
+.tagline{margin:6px 0 0;color:var(--muted);font-weight:400}
+
+.card{width:100%;max-width:var(--max-width);background:var(--card);border-radius:var(--radius);box-shadow:0 10px 30px rgba(29,33,41,0.06);padding:20px}
+
+.task-form{display:flex;gap:8px;margin-bottom:14px}
+#task-input{flex:1;padding:12px 14px;border-radius:10px;border:1px solid #e6e9ef;font-size:15px;outline:none;transition:box-shadow .15s ease}
+#task-input:focus{box-shadow:0 6px 18px rgba(91,141,239,0.12);border-color:var(--accent)}
+.btn{padding:10px 12px;border-radius:10px;border:0;font-weight:600;cursor:pointer}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-600)}
+.btn-secondary{background:var(--glass);color:#374151}
+
+/* lively button gradient on hover */
+.btn-primary{
+  background-image: linear-gradient(90deg, rgba(255,255,255,0.04), transparent 60%);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn-primary:active{transform:translateY(1px)}
+
+.tasks{list-style:none;padding:0;margin:0}
+.task{display:flex;align-items:center;gap:12px;padding:12px;border-radius:10px;margin-bottom:8px;border:1px solid #f0f3f7;background:linear-gradient(180deg,#fff,#fbfdff)}
+.task.dragging{opacity:0.6;transform:scale(0.995)}
+.checkbox{width:18px;height:18px;border-radius:4px;border:1px solid #d6dbe3;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.checkbox input{width:100%;height:100%;margin:0;cursor:pointer}
+.task-label{flex:1;font-size:15px;color:#111827}
+.task.completed .task-label{color:#9aa3b2;text-decoration:line-through}
+.icon-btn{background:transparent;border:0;padding:6px;border-radius:8px;cursor:pointer;color:var(--muted)}
+.icon-btn:hover{background:var(--glass);color:#111}
+
+/* keyboard focus for tasks */
+.task:focus{
+  outline:3px solid rgba(20,184,166,0.18);
+  box-shadow:0 6px 18px rgba(20,184,166,0.08);
+}
+
+.checkbox input:focus + .task-label,
+.checkbox input:focus{
+  outline:2px solid rgba(20,184,166,0.18);
+}
+
+.controls{display:flex;align-items:center;justify-content:space-between;margin-top:14px;gap:8px;flex-wrap:wrap}
+.filters{display:flex;gap:8px}
+.filter-btn{background:transparent;border:0;padding:8px 10px;border-radius:8px;cursor:pointer;color:var(--muted)}
+.filter-btn.active{background:var(--glass);color:#111}
+.counter{color:var(--muted);font-size:14px}
+
+.footer{text-align:center;margin-top:18px;color:var(--muted)}
+
+/* small screens */
+@media (max-width:480px){
+  .brand{font-size:22px}
+  .task-form{flex-direction:column}
+  .btn{width:100%}
+}
+
+/* Animations */
+@keyframes popIn {
+  from{transform:translateY(-6px) scale(.98);opacity:0}
+  to{transform:none;opacity:1}
+}
+@keyframes shrinkOut {
+  from{opacity:1;transform:scale(1)}
+  to{opacity:0;transform:scale(.92)}
+}
+@keyframes counterPulse {
+  0%{transform:scale(1)}
+  50%{transform:scale(1.06)}
+  100%{transform:scale(1)}
+}
+
+.task.added{animation: popIn 280ms cubic-bezier(.2,.9,.3,1)}
+.task.removing{animation: shrinkOut 180ms ease forwards}
+.counter.pulse{animation: counterPulse 340ms ease}
+
+/* animated strike: draw a line with transform */
+.task-label{
+  position:relative;
+}
+.task-label::after{
+  content:'';position:absolute;left:0;right:0;height:2px;background:var(--accent);top:50%;transform:scaleX(0);transform-origin:left center;transition:transform 300ms cubic-bezier(.2,.9,.3,1),background 200ms;
+  opacity:0.9;border-radius:2px
+}
+.task.completed .task-label::after{transform:scaleX(1);background:linear-gradient(90deg,var(--accent),var(--accent-600))}
+
+/* subtle card hover lift */
+.task:hover{box-shadow:0 10px 30px rgba(20,184,166,0.04);transform:translateY(-2px)}
+
+/* small decorative accent on header */
+.brand{display:inline-block;position:relative}
+.brand::after{content:'';position:absolute;right:-18px;top:6px;width:10px;height:10px;border-radius:50%;background:linear-gradient(45deg,var(--accent),var(--accent-600));box-shadow:0 6px 16px rgba(20,184,166,0.14)}

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TaskFlow — Find your focus. Manage your day.</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="header">
+      <h1 class="brand">TaskFlow</h1>
+      <p class="tagline">Find your focus. Manage your day.</p>
+    </header>
+
+    <section class="card">
+      <form id="task-form" class="task-form" autocomplete="off">
+        <input id="task-input" name="task" type="text" placeholder="Add a task and press Enter" aria-label="Add a task">
+        <button type="submit" class="btn btn-primary">Add</button>
+      </form>
+
+      <ul id="tasks" class="tasks" aria-live="polite"></ul>
+
+      <div class="controls">
+        <div class="left">
+          <span id="task-counter" class="counter">You have 0 tasks left.</span>
+        </div>
+        <div class="center filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="active">Active</button>
+          <button class="filter-btn" data-filter="completed">Completed</button>
+        </div>
+        <div class="right">
+          <button id="clear-completed" class="btn btn-secondary">Clear Completed</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <small>TaskFlow — Minimalist task manager. No account needed. Your data stays in your browser.</small>
+    </footer>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
